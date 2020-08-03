@@ -1,0 +1,29 @@
+
+say "א." -o "א.wav" --data-format=ulaw@44100
+say "ב." -o "ב.wav" --data-format=ulaw@44100
+say "ג." -o "ג.wav" --data-format=ulaw@44100
+say "ד." -o "ד.wav" --data-format=ulaw@44100
+say "ה." -o "ה.wav" --data-format=ulaw@44100
+say "ו." -o "ו.wav" --data-format=ulaw@44100
+say "ז." -o "ז.wav" --data-format=ulaw@44100
+say "ח." -o "ח.wav" --data-format=ulaw@44100
+say "ט." -o "ט.wav" --data-format=ulaw@44100
+say "י." -o "י.wav" --data-format=ulaw@44100
+say "כ." -o "כ.wav" --data-format=ulaw@44100
+say "ל." -o "ל.wav" --data-format=ulaw@44100
+say "מ." -o "מ.wav" --data-format=ulaw@44100
+say "נ." -o "נ.wav" --data-format=ulaw@44100
+say "ס." -o "ס.wav" --data-format=ulaw@44100
+say "ע." -o "ע.wav" --data-format=ulaw@44100
+say "פ." -o "פ.wav" --data-format=ulaw@44100
+say "צ." -o "צ.wav" --data-format=ulaw@44100
+say "ק." -o "ק.wav" --data-format=ulaw@44100
+say "ר." -o "ר.wav" --data-format=ulaw@44100
+say "ש." -o "ש.wav" --data-format=ulaw@44100
+say "ת." -o "ת.wav" --data-format=ulaw@44100
+
+say "ם." -o "ם.wav" --data-format=ulaw@44100
+say "ך." -o "ך.wav" --data-format=ulaw@44100
+say "ץ." -o "ץ.wav" --data-format=ulaw@44100
+say "ף." -o "ף.wav" --data-format=ulaw@44100
+say "ן." -o "ן.wav" --data-format=ulaw@44100

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Words Type</title>
+    <script src="words.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+    <style>
+        #image-div {
+            width: 60vh;
+            height: 60vh;
+            margin: 20px auto;
+        }
+
+        #image {
+            display: block;
+            width: 100%;
+        }
+
+        #text-div {
+            position: relative;
+            text-align: center;
+        }
+
+        #gray-text {
+            display: inline-block;
+            top: 0;
+            text-align: center;
+            font-size: 20vh;
+            color: #bbb;
+            line-height: 1em;
+        }
+
+
+        #black-text {
+            display: block;
+            font-size: 20vh;
+            margin: 0 auto;
+            margin-top: -20vh;
+            text-align: right;
+            line-height: 1em;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="image-div">
+    <img id="image">
+</div>
+
+<div id="text-div">
+    <div id="gray-text"></div>
+    <div id="black-text"></div>
+</div>
+
+
+<script>
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    var currentWordData = null;
+    var currentWord = "";
+    var filled = "";
+    var readKey = true;
+
+    function newWord() {
+        const random = Math.floor(Math.random() * words.length);
+        currentWordData = words[random];
+        currentWord = words[random].word;
+        filled = "";
+        document.getElementById("image").src = "images/" + words[random].category + "/" + words[random].word + ".svg";
+        document.getElementById("gray-text").textContent = currentWord;
+        document.getElementById("black-text").textContent = "";
+        document.getElementById("black-text").style.width = document.getElementById("gray-text").offsetWidth + "px";
+
+    }
+
+    function playBell() {
+        var audio = new Audio('sounds/bell.wav');
+        audio.play();
+    }
+
+    function playLetter(letter) {
+        var audio = new Audio('lettersounds/' + letter + '.wav');
+        audio.play();
+    }
+    function playError() {
+        var audio = new Audio('sounds/error.wav');
+        audio.play();
+    }
+
+    function playSuccess() {
+        var audio = new Audio('sounds/success.wav');
+        audio.play();
+    }
+
+    window.addEventListener("keydown", async function(e) {
+        if (!readKey) {
+            return;
+        }
+        console.log(currentWord[filled.length], e.key);
+        if (currentWord[filled.length] === e.key) {
+            filled += e.key;
+            document.getElementById("black-text").textContent = filled;
+            // playBell();
+            playLetter(e.key);
+        } else {
+            playError();
+        }
+
+        if (currentWord === filled) {
+            readKey = false;
+            playSuccess();
+            await sleep(1000);
+            var audio = new Audio('imagesounds/' + currentWordData.word + '.wav');
+            audio.play();
+            await sleep(1000);
+
+            newWord();
+            readKey = true;
+        }
+    });
+    newWord();
+
+</script>
+</body>
+</html>
