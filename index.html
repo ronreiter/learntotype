@@ -81,6 +81,9 @@
         document.getElementById("black-text").textContent = "";
         document.getElementById("black-text").style.width = (document.getElementById("gray-text").offsetWidth + 1) + "px";
         document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
+
+        playLetterQuestion(currentWord[filled.length]);
+
     }
 
     function playBell() {
@@ -92,6 +95,13 @@
         var audio = new Audio('lettersounds/' + letter + '.wav');
         audio.play();
     }
+
+    function playLetterQuestion(letter) {
+        var audio = new Audio('letterquestions/' + letter + '.wav');
+        audio.play();
+    }
+
+
     function playError() {
         var audio = new Audio('sounds/error.wav');
         audio.play();
@@ -118,6 +128,8 @@
             document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
             // playBell();
             playLetter(e.key);
+            await sleep(1000);
+            playLetterQuestion(currentWord[filled.length]);
         } else {
             playError();
         }
