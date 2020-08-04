@@ -127,9 +127,14 @@
 
             document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
             // playBell();
+            readKey = false;
+
             playLetter(e.key);
             await sleep(1000);
             playLetterQuestion(currentWord[filled.length]);
+
+            readKey = true;
+
         } else {
             playError();
         }
