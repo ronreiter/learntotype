@@ -8,6 +8,9 @@
 <!--    <script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 
     <style>
+        div {
+            font-family: Arial, sans-serif;
+        }
         #image-div {
             width: 60vh;
             height: 60vh;
@@ -28,7 +31,7 @@
             display: inline-block;
             top: 0;
             text-align: center;
-            font-size: 20vh;
+            font-size: 30vh;
             color: #bbb;
             line-height: 1em;
         }
@@ -36,9 +39,9 @@
 
         #black-text {
             display: block;
-            font-size: 20vh;
+            font-size: 30vh;
             margin: 0 auto;
-            margin-top: -20vh;
+            margin-top: -30vh;
             text-align: right;
             line-height: 1em;
 
@@ -76,8 +79,8 @@
         document.getElementById("image").src = "images/" + words[random].category + "/" + words[random].word + ".svg";
         document.getElementById("gray-text").textContent = currentWord;
         document.getElementById("black-text").textContent = "";
-        document.getElementById("black-text").style.width = document.getElementById("gray-text").offsetWidth + "px";
-
+        document.getElementById("black-text").style.width = (document.getElementById("gray-text").offsetWidth + 1) + "px";
+        document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
     }
 
     function playBell() {
@@ -106,7 +109,13 @@
         console.log(currentWord[filled.length], e.key);
         if (currentWord[filled.length] === e.key) {
             filled += e.key;
-            document.getElementById("black-text").textContent = filled;
+
+            // skip spaces
+            while (currentWord[filled.length] === " ") {
+                filled += " ";
+            }
+
+            document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
             // playBell();
             playLetter(e.key);
         } else {
