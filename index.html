@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>Words Type</title>
     <script src="words.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
 <!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
-<!--    <script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <style>
-        div {
-            font-family: Arial, sans-serif;
-        }
         #image-div {
             width: 60vh;
             height: 60vh;
@@ -28,8 +26,11 @@
         }
 
         #gray-text {
-            display: inline-block;
+            position: absolute;
+            display: block;
             top: 0;
+            left: 0;
+            right: 0;
             text-align: center;
             font-size: 30vh;
             color: #bbb;
@@ -38,120 +39,233 @@
 
 
         #black-text {
+            position: absolute;
             display: block;
+            top: 0;
+            left: 0;
+            right: 0;
             font-size: 30vh;
-            margin: 0 auto;
-            margin-top: -30vh;
-            text-align: right;
+            text-align: center;
             line-height: 1em;
-
+            color: transparent;
         }
 
+        .menu-list {
+            height: 100vh;
+        }
+
+        li.selected {
+            background-color: #f5f5f5;
+            font-weight: bold;
+
+        }
     </style>
 </head>
 <body>
 
-<div id="image-div">
-    <img id="image">
+<div class="columns" id="app">
+    <div class="column is-one-quarter" style="padding-left: 0">
+        <aside class="menu">
+
+          <ul class="menu-list">
+            <li v-for="c in categories" :class="{'selected': selectedCategory == c.name}">
+                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
+            </li>
+          </ul>
+
+    </aside>
+
+    </div>
+
+    <div class="main column is-three-quarters has-background-white-ter">
+        <div id="image-div">
+            <img :src='"images/" + category + "/" + currentWord + ".svg"'>
+        </div>
+
+        <div id="text-div">
+            <div id="gray-text">{{ currentWord }}</div>
+            <div id="black-text"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
+        </div>
+
+    </div>
 </div>
 
-<div id="text-div">
-    <div id="gray-text"></div>
-    <div id="black-text"></div>
-</div>
+
 
 
 <script>
+
     const sleep = (milliseconds) => {
       return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    var currentWordData = null;
-    var currentWord = "";
-    var filled = "";
-    var readKey = true;
 
-    function newWord() {
-        const random = Math.floor(Math.random() * words.length);
-        currentWordData = words[random];
-        currentWord = words[random].word;
-        filled = "";
-        document.getElementById("image").src = "images/" + words[random].category + "/" + words[random].word + ".svg";
-        document.getElementById("gray-text").textContent = currentWord;
-        document.getElementById("black-text").textContent = "";
-        document.getElementById("black-text").style.width = (document.getElementById("gray-text").offsetWidth + 1) + "px";
-        document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
+    const app = new Vue({
+        el: "#app",
+        data: {
+            categories: [
+                {
+                    "icon": "תפוח",
+                    "name": "אוכל"
+                },
+                {
+                    "icon": "טבח",
+                    "name": "אנשים"
+                },
+                {
+                    "icon": "טלויזיה",
+                    "name": "בית"
+                },
+                {
+                    "icon": "יד",
+                    "name": "גוף"
+                },
+                {
+                    "icon": "בלון",
+                    "name": "דברים"
+                },
+                {
+                    "icon": "כלב",
+                    "name": "חיות"
+                },
+                {
+                    "icon": "גיטרה",
+                    "name": "כלי נגינה"
+                },
+                {
+                    "icon": "מפתח",
+                    "name": "כלים"
+                },
+                {
+                    "icon": "מכנסים",
+                    "name": "לבוש"
+                },
+                {
+                    "icon": "בית",
+                    "name": "מקומות"
+                },
+                {
+                    "icon": "כדורסל",
+                    "name": "ספורט"
+                },
+                {
+                    "icon": "פרח",
+                    "name": "צמחים"
+                },
+                {
+                    "icon": "נשיקה",
+                    "name": "רגשות"
+                },
+                {
+                    "icon": "אוטו",
+                    "name": "תחבורה"
+                },
 
-        playLetterQuestion(currentWord[filled.length]);
+            ],
+            selectedCategory: "אוכל",
+            category: "",
+            currentWord: "",
+            filled: "",
+            currentLetter: "",
+            restOfWord: "",
+            readKey: true,
 
-    }
+        },
+        mounted() {
+            window.addEventListener("keydown", this.keydown);
+            this.newWord();
+        },
+        methods: {
+            async keydown(e) {
+                if (!this.readKey) {
+                    return;
+                }
+                if (this.currentWord[this.filled.length] === e.key) {
+                    this.filled += e.key;
 
-    function playBell() {
-        var audio = new Audio('sounds/bell.wav');
-        audio.play();
-    }
+                    // skip spaces
+                    while (this.currentWord[this.filled.length] === " ") {
+                        this.filled += " ";
+                    }
 
-    function playLetter(letter) {
-        var audio = new Audio('lettersounds/' + letter + '.wav');
-        audio.play();
-    }
+                    this.currentLetter = this.currentWord[this.filled.length];
+                    this.restOfWord = this.currentWord.substr(this.filled.length+1);
 
-    function playLetterQuestion(letter) {
-        var audio = new Audio('letterquestions/' + letter + '.wav');
-        audio.play();
-    }
+                    this.readKey = false;
+
+                    this.playLetter(e.key);
+                    await sleep(1000);
+
+                    if (this.currentWord[this.filled.length]) {
+                        this.playLetterQuestion(this.currentWord[this.filled.length]);
+                    }
+
+                    this.readKey = true;
+
+                } else {
+                    this.playError();
+                }
+
+                if (this.currentWord === this.filled) {
+                    this.readKey = false;
+                    this.playSuccess();
+                    await sleep(1000);
+
+                    // move to function
+                    var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
+                    audio.play();
+
+                    await sleep(1000);
+
+                    this.newWord();
+                    this.readKey = true;
+                }
+            },
+            newWord() {
+                const filteredWords = words.filter(x => x.category === this.selectedCategory);
+
+                const random = Math.floor(Math.random() * filteredWords.length);
+                this.currentWord = filteredWords[random].word;
+                this.category = filteredWords[random].category;
+                this.filled = "";
+                this.currentLetter = this.currentWord[this.filled.length];
+                this.restOfWord = this.currentWord.substr(this.filled.length+1);
+
+                this.playLetterQuestion(this.currentWord[this.filled.length]);
+
+            },
+            chooseCategory(category) {
+                this.selectedCategory = category;
+                this.newWord();
+            },
+            playBell() {
+                var audio = new Audio('sounds/bell.wav');
+                audio.play();
+            },
+
+            playLetter(letter) {
+                var audio = new Audio('lettersounds/' + letter + '.wav');
+                audio.play();
+            },
+
+            playLetterQuestion(letter) {
+                var audio = new Audio('letterquestions/' + letter + '.wav');
+                audio.play();
+            },
 
 
-    function playError() {
-        var audio = new Audio('sounds/error.wav');
-        audio.play();
-    }
+            playError() {
+                var audio = new Audio('sounds/error.wav');
+                audio.play();
+            },
 
-    function playSuccess() {
-        var audio = new Audio('sounds/success.wav');
-        audio.play();
-    }
+            playSuccess() {
+                var audio = new Audio('sounds/success.wav');
+                audio.play();
+            },
 
-    window.addEventListener("keydown", async function(e) {
-        if (!readKey) {
-            return;
-        }
-        console.log(currentWord[filled.length], e.key);
-        if (currentWord[filled.length] === e.key) {
-            filled += e.key;
-
-            // skip spaces
-            while (currentWord[filled.length] === " ") {
-                filled += " ";
-            }
-
-            document.getElementById("black-text").innerHTML = filled + (currentWord[filled.length] ? "<span style='color: #ffcc00; '>" + currentWord[filled.length] + "</span>" : "");
-            // playBell();
-            readKey = false;
-
-            playLetter(e.key);
-            await sleep(1000);
-            playLetterQuestion(currentWord[filled.length]);
-
-            readKey = true;
-
-        } else {
-            playError();
-        }
-
-        if (currentWord === filled) {
-            readKey = false;
-            playSuccess();
-            await sleep(1000);
-            var audio = new Audio('imagesounds/' + currentWordData.word + '.wav');
-            audio.play();
-            await sleep(1000);
-
-            newWord();
-            readKey = true;
         }
     });
-    newWord();
 
 </script>
 </body>
