@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
 <!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script><script>confetti.start()</script>
 
     <style>
         #image-div {
@@ -212,13 +213,14 @@
                 if (this.currentWord === this.filled) {
                     this.readKey = false;
                     this.playSuccess();
+                    confetti.start(1200, 50, 1500);
                     await sleep(1000);
 
                     // move to function
                     var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
                     audio.play();
 
-                    await sleep(1000);
+                    await sleep(2000);
 
                     this.newWord();
                     this.readKey = true;
