@@ -183,9 +183,12 @@
                 if (this.currentWord[this.filled.length] === e.key) {
                     this.filled += e.key;
 
-                    // skip spaces
+                    // skip spaces and ticks
                     while (this.currentWord[this.filled.length] === " ") {
                         this.filled += " ";
+                    }
+                    while (this.currentWord[this.filled.length] === "'") {
+                        this.filled += "'";
                     }
 
                     this.currentLetter = this.currentWord[this.filled.length];
