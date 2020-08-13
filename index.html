@@ -33,7 +33,7 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 30vh;
+            font-size: 20vh;
             color: #bbb;
             line-height: 1em;
         }
@@ -45,7 +45,7 @@
             top: 0;
             left: 0;
             right: 0;
-            font-size: 30vh;
+            font-size: 20vh;
             text-align: center;
             line-height: 1em;
             color: transparent;
@@ -98,6 +98,36 @@
 
     const sleep = (milliseconds) => {
       return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    const hebrewKeyboard = {
+        65: "ש",
+        66: "נ",
+        67: "ב",
+        68: "ג",
+        69: "ק",
+        70: "כ",
+        71: "ע",
+        72: "י",
+        73: "ן",
+        74: "ח",
+        75: "ל",
+        76: "ך",
+        77: "צ",
+        78: "מ",
+        79: "ם",
+        80: "פ",
+        82: "ר",
+        83: "ד",
+        84: "א",
+        85: "ו",
+        86: "ה",
+        88: "ס",
+        89: "ט",
+        90: "ז",
+        186: "ף",
+        188: "ת",
+        190: "ץ",
     }
 
 
@@ -178,11 +208,14 @@
         },
         methods: {
             async keydown(e) {
+                let k = hebrewKeyboard[e.keyCode];
+                console.log(k);
+
                 if (!this.readKey) {
                     return;
                 }
-                if (this.currentWord[this.filled.length] === e.key) {
-                    this.filled += e.key;
+                if (this.currentWord[this.filled.length] === k) {
+                    this.filled += k;
 
                     // skip spaces and ticks
                     while (this.currentWord[this.filled.length] === " ") {
@@ -197,7 +230,7 @@
 
                     this.readKey = false;
 
-                    this.playLetter(e.key);
+                    this.playLetter(k);
                     await sleep(1000);
 
                     if (this.currentWord[this.filled.length]) {
