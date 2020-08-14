@@ -209,11 +209,15 @@
         methods: {
             async keydown(e) {
                 let k = hebrewKeyboard[e.keyCode];
-                console.log(k);
 
                 if (!this.readKey) {
                     return;
                 }
+
+                if (!k) {
+                    return;
+                }
+
                 if (this.currentWord[this.filled.length] === k) {
                     this.filled += k;
 
