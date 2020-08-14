@@ -249,10 +249,7 @@
                     confetti.start(1200, 50, 1500);
                     await sleep(1000);
 
-                    // move to function
-                    var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
-                    audio.play();
-
+                    this.playCurrentWord();
                     await sleep(2000);
 
                     this.newWord();
@@ -269,7 +266,11 @@
                 this.currentLetter = this.currentWord[this.filled.length];
                 this.restOfWord = this.currentWord.substr(this.filled.length+1);
 
-                this.playLetterQuestion(this.currentWord[this.filled.length]);
+                this.playCurrentWord();
+                sleep(1000).then(()=> {
+                    this.playLetterQuestion(this.currentWord[this.filled.length]);
+                });
+
 
             },
             chooseCategory(category) {
@@ -280,7 +281,11 @@
                 var audio = new Audio('sounds/bell.wav');
                 audio.play();
             },
-
+            playCurrentWord() {
+                // move to function
+                var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
+                audio.play();
+            },
             playLetter(letter) {
                 var audio = new Audio('lettersounds/' + letter + '.wav');
                 audio.play();
