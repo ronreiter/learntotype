@@ -1,6 +1,9 @@
-import leveldb
+import os
 
-l = leveldb.LevelDB("icons-db4")
+import leveldb, re
+
+l = leveldb.LevelDB("../icons-db4")
+cat_regexp = re.compile(b"\x00\x08id.*?(\w+).*?\x00\x08category")
 
 for xx in l.RangeIter():
 	data = xx[1]
@@ -15,11 +18,25 @@ for xx in l.RangeIter():
 			break
 		final_icon_name = chr(letter) + final_icon_name
 
-	if b"\x00\x08emoji\x00\x08platform" not in data:
+	if b"\x00\x08emoji\x00\x08" not in data:
 		continue
+
+	category = re.findall(b"categories\W*?(\w*?)\W*?subcategories", data)
+
+	if not category:
+		print(data)
+		print(category[0])
+		continue
+
+
+	print(final_icon_name)
+	c = category[0].decode('utf8')
 
 	# if final_icon_name == "Hedgehog":
 	# 	print(xx)
 	# continue
-	with open("svg2/%s.svg" % final_icon_name, "w") as f:
+	p = "../images2/" + c
+	if not os.path.exists(p):
+		os.makedirs(p)
+	with open("%s/%s.svg" % (p, final_icon_name), "w") as f:
 		f.write(svg)
