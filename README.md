@@ -21,3 +21,7 @@ To add a word do the following steps:
     מספרים
     ```
 4. And Bob's your uncle :)
+
+# Running locally
+
+Simply open index.html using Chrome.
