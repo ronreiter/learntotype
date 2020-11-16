@@ -8,6 +8,13 @@ Learn to Type is implemented in Vue.js and has no server side requirements or st
 
 https://ronreiter.github.io/learntotype/index.html
 
+
+# Running locally:
+
+Simply open index.html using Chrome.
+
+If you are using an idea like Webstorm you can debug with breakpoints. Just debug the index.html file. 
+
 # Contributing
 
 To add a word do the following steps:
@@ -22,6 +29,8 @@ To add a word do the following steps:
     ```
 4. And Bob's your uncle :)
 
-# Running locally
-
-Simply open index.html using Chrome.
+To add a new letter do the following steps:
+1. Prepare a .wav file asking <> איפה? and put it under letterquestions
+2. Prepare a .wav file with the sound of the letter and put it under lettersounds.
+3. Add to hebrewKeyboard var in index.js
+4. Profit!
