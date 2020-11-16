@@ -13,7 +13,7 @@ https://ronreiter.github.io/learntotype/index.html
 To add a word do the following steps:
 
 0. Install Hebrew system voice Carmit (Accessibility -> Speech)
-1. Prepare a .wav file by using mac say command (e.g say -v carmit -o "negative_100.wav" --data-format=LEF32@32000 "מינוס מאה") and add it under imagesounds
+1. Prepare a .wav file by using mac say command (e.g say -v carmit -o "100.wav" --data-format=LEF32@32000 "מאה") and add it under imagesounds
 2. Prepare a .svg file with the correct image and add it under correct category under images.
 3. Add to words.js to correct category
     ```python
