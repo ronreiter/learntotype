@@ -84,8 +84,8 @@
         </div>
 
         <div id="text-div">
-            <div id="gray-text">{{ currentWord }}</div>
-            <div id="black-text"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
+            <div id="gray-text" dir="ltr"><span dir="ltr">{{ currentWord }}</span></div>
+            <div id="black-text" dir="ltr"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
         </div>
 
     </div>
@@ -138,6 +138,7 @@
         186: "ף",
         188: "ת",
         190: "ץ",
+        189: "-",
     }
 
 
@@ -276,7 +277,6 @@
             },
             newWord() {
                 const filteredWords = words.filter(x => x.category === this.selectedCategory);
-
                 const random = Math.floor(Math.random() * filteredWords.length);
                 this.currentWord = filteredWords[random].word;
                 this.category = filteredWords[random].category;
