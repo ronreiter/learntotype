@@ -1,12 +1,11 @@
 import os
 
-import leveldb, re
+import plyvel, re, hashlib
 
-l = leveldb.LevelDB("../icons-db4")
+l = plyvel.DB("../icons-db4")
 cat_regexp = re.compile(b"\x00\x08id.*?(\w+).*?\x00\x08category")
 
-for xx in l.RangeIter():
-	data = xx[1]
+for key, data in l:
 	if b"<svg" not in data:
 		continue
 	svg = data[data.index(b"<svg"):data.index(b"svg>")+4].decode("utf8")
@@ -18,25 +17,25 @@ for xx in l.RangeIter():
 			break
 		final_icon_name = chr(letter) + final_icon_name
 
-	if b"\x00\x08emoji\x00\x08" not in data:
-		continue
+	# if b"\x00\x08emoji\x00\x08" not in data:
+	# 	continue
 
 	category = re.findall(b"categories\W*?(\w*?)\W*?subcategories", data)
 
 	if not category:
-		print(data)
-		print(category[0])
-		continue
-
+#		print(data)
+#		print(category)
+#		continue
+		c = category = "nocat"
+	else:
+		c = category[0].decode('utf8')
 
 	print(final_icon_name)
-	c = category[0].decode('utf8')
 
-	# if final_icon_name == "Hedgehog":
-	# 	print(xx)
-	# continue
-	p = "../images2/" + c
+	p = "images/" + c
 	if not os.path.exists(p):
 		os.makedirs(p)
-	with open("%s/%s.svg" % (p, final_icon_name), "w") as f:
+
+	h = hashlib.md5(svg.encode('utf8')).hexdigest()
+	with open("%s/%s.svg" % (p, final_icon_name + "_" + h), "w") as f:
 		f.write(svg)
