@@ -8,6 +8,7 @@ Learn to Type is implemented in Vue.js and has no server side requirements or st
 
 This version is the English version that is based on the original version here:
 https://ronreiter.github.io/learntotype/index.html
+
 With the original source here:
 https://github.com/ronreiter/learntotype
 
