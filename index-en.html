@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <title>Learn to Type</title>
+    <script src="words-en.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="confetti.min.js"></script><script>confetti.start()</script>
+
+    <style>
+        #image-div {
+            width: 60vh;
+            height: 60vh;
+            margin: 20px auto;
+        }
+
+        #image {
+            display: block;
+            width: 100%;
+        }
+
+        #text-div {
+            position: relative;
+            text-align: center;
+        }
+
+        #gray-text {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 20vh;
+            color: #bbb;
+            line-height: 1em;
+        }
+
+
+        #black-text {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 20vh;
+            text-align: center;
+            line-height: 1em;
+            color: transparent;
+        }
+
+        .menu-list {
+            height: 100vh;
+        }
+
+        li.selected {
+            background-color: #f5f5f5;
+            font-weight: bold;
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="columns" id="app">
+    <div class="column is-one-quarter" style="padding-left: 0">
+        <aside class="menu">
+
+          <ul class="menu-list">
+            <li v-for="c in categories" :class="{'selected': selectedCategory == c.name}">
+                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images-en/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
+            </li>
+          </ul>
+
+    </aside>
+
+    </div>
+
+    <div class="main column is-three-quarters has-background-white-ter">
+        <div class="apps_ad" id="ad">
+            <p style="text-align: center; margin-top: 20px">
+                <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
+                <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
+                <span id="close">x</span>
+            </p>
+        </div>
+
+        <div id="image-div">
+            <img :src='"images-en/" + category + "/" + currentWord + ".svg"'>
+        </div>
+
+        <div id="text-div">
+            <div id="gray-text" dir="ltr"><span dir="ltr">{{ currentWord }}</span></div>
+            <div id="black-text" dir="ltr"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    window.onload = function(){
+        document.getElementById("close").onclick = function(){
+            this.parentNode.parentNode.parentNode
+            .removeChild(this.parentNode.parentNode);
+            return false;
+        };
+        setTimeout(function() {document.getElementById("ad").remove()},10000);
+    };
+
+    const EnglishKeyboard = {
+        48: "0",      
+        49: "1",
+        50: "2",
+        51: "3",
+        52: "4",
+        53: "5",
+        54: "6",
+        55: "7",
+        56: "8",
+        57: "9",
+        65: "A",
+        66: "B",
+        67: "C",
+        68: "D",
+        69: "E",
+        70: "F",
+        71: "G",
+        72: "H",
+        73: "I",
+        74: "J",
+        75: "K",
+        76: "L",
+        77: "M",
+        78: "N",
+        79: "O",
+        80: "P",
+        81: "Q",
+        82: "R",
+        83: "S",
+        84: "T",
+        85: "U",
+        86: "V",
+        87: "W",
+        88: "X",
+        89: "Y",
+        90: "Z"
+    }
+
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            categories: [
+                {
+                    "icon": "Avocado",
+                    "name": "Food"
+                },
+                {
+                    "icon": "Ghost",
+                    "name": "People"
+                },
+                {
+                    "icon": "Telephone",
+                    "name": "Home"
+                },
+                {
+                    "icon": "Woman",
+                    "name": "Body"
+                },
+                {
+                    "icon": "Rock",
+                    "name": "Things"
+                },
+                {
+                    "icon": "Bear",
+                    "name": "Animals"
+                },
+                {
+                    "icon": "Guitar",
+                    "name": "Music"
+                },
+                {
+                    "icon": "Umbrella",
+                    "name": "Tools"
+                },
+                {
+                    "icon": "Snowman",
+                    "name": "Clothes"
+                },
+                {
+                    "icon": "10",
+                    "name": "Numbers"
+                },
+                {
+                    "icon": "Mountain",
+                    "name": "Places"
+                },
+                {
+                    "icon": "Baseball",
+                    "name": "Sports"
+                },
+                {
+                    "icon": "Rose",
+                    "name": "Plants"
+                },
+                {
+                    "icon": "Kiss",
+                    "name": "Feelings"
+                },
+                {
+                    "icon": "Car",
+                    "name": "Vehicles"
+                },
+
+            ],
+            selectedCategory: "Food",
+            category: "",
+            currentWord: "",
+            filled: "",
+            currentLetter: "",
+            restOfWord: "",
+            readKey: true,
+
+        },
+        mounted() {
+            window.addEventListener("keydown", this.keydown);
+            this.newWord();
+        },
+        methods: {
+            async keydown(e) {
+                let k = EnglishKeyboard[e.keyCode].toUpperCase();
+                let l = this.currentWord[this.filled.length].toUpperCase();
+
+                if (!this.readKey) {
+                    return;
+                }
+
+                if (!k) {
+                    return;
+                }
+
+                if (l === k) {
+                    this.filled += this.currentWord[this.filled.length];
+
+                    // skip spaces and ticks
+                    while (this.currentWord[this.filled.length] === " ") {
+                        this.filled += " ";
+                    }
+                    while (this.currentWord[this.filled.length] === "'") {
+                        this.filled += "'";
+                    }
+
+                    this.currentLetter = this.currentWord[this.filled.length];
+                    this.restOfWord = this.currentWord.substr(this.filled.length+1);
+
+                    this.readKey = false;
+
+                    this.playLetter(k);
+                    await sleep(100);
+
+                    if (this.currentWord[this.filled.length]) {
+                        this.playLetterQuestion(this.currentWord[this.filled.length]);
+                    }
+
+                    this.readKey = true;
+
+                } else {
+                    this.playError();
+                }
+
+                if (this.currentWord === this.filled) {
+                    this.readKey = false;
+                    this.playSuccess();
+                    confetti.start(1200, 50, 1500);
+                    await sleep(1000);
+                    this.playCurrentWord();
+                    await sleep(2000);
+
+                    this.newWord();
+                    this.readKey = true;
+                }
+            },
+            newWord() {
+                const filteredWords = words.filter(x => x.category === this.selectedCategory);
+                const random = Math.floor(Math.random() * filteredWords.length);
+                this.currentWord = filteredWords[random].word;
+                this.category = filteredWords[random].category;
+                this.filled = "";
+                this.currentLetter = this.currentWord[this.filled.length];
+                this.restOfWord = this.currentWord.substr(this.filled.length+1);
+
+                this.playCurrentWord();
+                sleep(1000).then(()=> {
+                    this.playLetterQuestion(this.currentWord[this.filled.length]);
+                });
+
+
+            },
+            chooseCategory(category) {
+                this.selectedCategory = category;
+                this.newWord();
+            },
+            playBell() {
+                var audio = new Audio('sounds/bell.wav');
+                audio.play();
+            },
+            playCurrentWord() {                
+                var msg = new SpeechSynthesisUtterance();
+                msg.text = this.currentWord;
+                window.speechSynthesis.speak(msg);
+            },
+            playLetter(letter) {
+                var msg = new SpeechSynthesisUtterance();
+                msg.text = letter;
+                window.speechSynthesis.speak(msg);
+            },
+
+            playLetterQuestion(letter) {
+                var msg = new SpeechSynthesisUtterance();
+                msg.text = "where is " + letter;
+                window.speechSynthesis.speak(msg);
+            },
+
+
+            playError() {
+                var audio = new Audio('sounds/error.wav');
+                audio.play();
+            },
+
+            playSuccess() {
+                var audio = new Audio('sounds/success.wav');
+                audio.play();
+            },
+
+        }
+    });
+
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165390394-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-165390394-2');
+</script>
+
+</body>
+</html>
