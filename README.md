@@ -41,9 +41,4 @@ To add a new letter do the following steps:
 
 To add a word to the English version do the following steps:
 1. Prepare a .svg file with the correct image and add it under correct category under images-en.
-2. Add to words-en.js to correct category
-    ```python
-    >>> {"category": "\u0046\u006f\u006f\u0064",    "word": "\u0041\u0076\u006f\u0063\u0061\u0064\u006f"}
-    >>> Food, Avocado
-    ```
-4. You can use any UTF-16 / unicode converter (for example this: https://www.branah.com/unicode-converter)
+2. Run generate_words_file.py to update words-en.js
