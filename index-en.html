@@ -312,21 +312,25 @@
                 this.newWord();
             },
             playBell() {
+                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/bell.wav');
                 audio.play();
             },
-            playCurrentWord() {                
+            playCurrentWord() {   
+                window.speechSynthesis.cancel();             
                 var msg = new SpeechSynthesisUtterance();
                 msg.text = this.currentWord;
                 window.speechSynthesis.speak(msg);
             },
             playLetter(letter) {
+                window.speechSynthesis.cancel();
                 var msg = new SpeechSynthesisUtterance();
                 msg.text = letter;
                 window.speechSynthesis.speak(msg);
             },
 
             playLetterQuestion(letter) {
+                window.speechSynthesis.cancel();
                 var msg = new SpeechSynthesisUtterance();
                 msg.text = "where is " + letter;
                 window.speechSynthesis.speak(msg);
@@ -334,11 +338,13 @@
 
 
             playError() {
+                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/error.wav');
                 audio.play();
             },
 
             playSuccess() {
+                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/success.wav');
                 audio.play();
             },
