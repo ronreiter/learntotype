@@ -1,6 +1,6 @@
 self.addEventListener('install', function(e) {
     e.waitUntil(
-        caches.open('pwa-example').then(function(cache) {
+        caches.open('learntotypepwa').then(function(cache) {
             return cache.addAll([
                 '/learntotype',
                 '/learntotype/index.html',
