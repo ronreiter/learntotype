@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="manifest" href="manifest.json">
+    <!--link rel="manifest" href="manifest.json"-->
     <meta charset="UTF-8">
     <title>Learn to Type</title>
     <script src="words-en.js"></script>
@@ -52,323 +52,29 @@
             color: transparent;
         }
 
-        .menu-list {
-            height: 100vh;
-        }
-
-        li.selected {
-            background-color: #f5f5f5;
-            font-weight: bold;
-
-        }
     </style>
 </head>
 <body>
 
 <div class="columns" id="app">
-    <div class="column is-one-quarter" style="padding-left: 0">
-        <aside class="menu">
-
-          <ul class="menu-list">
-            <li v-for="c in categories" :class="{'selected': selectedCategory == c.name}">
-                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images-en/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
-            </li>
-          </ul>
-
-    </aside>
-
-    </div>
-
     <div class="main column is-three-quarters has-background-white-ter">
-        <div class="apps_ad" id="ad">
+        <div class="lang_selector">
             <p style="text-align: center; margin-top: 20px">
-                <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
-                <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
-                <span id="close">x</span>
+
+                <a href="/Hebrew/index.html"><img src="images/2560px-Flag_of_Israel.svg.png" style="display: inline-block; height: 150px; margin-right: 50px "></a>
+                <a href="/English/index.html"><img src="images/2880px-Flag_of_the_United_States.svg.png" style="display: inline-block; height: 150px"></a>
             </p>
         </div>
-
-        <div id="image-div">
-            <img :src='"images-en/" + category + "/" + currentWord + ".svg"'>
-        </div>
-
-        <div id="text-div">
-            <div id="gray-text" dir="ltr"><span dir="ltr">{{ currentWord }}</span></div>
-            <div id="black-text" dir="ltr"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
+       
+       
+        <div class="apps_ad" id="ad">
+            <p style="text-align: center; margin-bottom;: 100px">
+                <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
+                <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
+            </p>
         </div>
 
     </div>
 </div>
-
-
-
-
-<script>
-
-    const sleep = (milliseconds) => {
-      return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
-    window.onload = function(){
-        document.getElementById("close").onclick = function(){
-            this.parentNode.parentNode.parentNode
-            .removeChild(this.parentNode.parentNode);
-            return false;
-        };
-        setTimeout(function() {document.getElementById("ad").remove()},10000);
-    };
-
-    const EnglishKeyboard = {
-        48: "0",      
-        49: "1",
-        50: "2",
-        51: "3",
-        52: "4",
-        53: "5",
-        54: "6",
-        55: "7",
-        56: "8",
-        57: "9",
-        65: "A",
-        66: "B",
-        67: "C",
-        68: "D",
-        69: "E",
-        70: "F",
-        71: "G",
-        72: "H",
-        73: "I",
-        74: "J",
-        75: "K",
-        76: "L",
-        77: "M",
-        78: "N",
-        79: "O",
-        80: "P",
-        81: "Q",
-        82: "R",
-        83: "S",
-        84: "T",
-        85: "U",
-        86: "V",
-        87: "W",
-        88: "X",
-        89: "Y",
-        90: "Z"
-    }
-
-
-    const app = new Vue({
-        el: "#app",
-        data: {
-            categories: [
-                {
-                    "icon": "Apple",
-                    "name": "Food"
-                },
-                {
-                    "icon": "Chef",
-                    "name": "People"
-                },
-                {
-                    "icon": "Television",
-                    "name": "Home"
-                },
-                {
-                    "icon": "Hand",
-                    "name": "Body"
-                },
-                {
-                    "icon": "Balloon",
-                    "name": "Stuff"
-                },
-                {
-                    "icon": "Dog",
-                    "name": "Animals"
-                },
-                {
-                    "icon": "Guitar",
-                    "name": "Musical instruments"
-                },
-                {
-                    "icon": "Key",
-                    "name": "Tools"
-                },
-                {
-                    "icon": "Pants",
-                    "name": "Clothes"
-                },
-                {
-                    "icon": "10",
-                    "name": "Numbers"
-                },
-                {
-                    "icon": "Home",
-                    "name": "Places"
-                },
-                {
-                    "icon": "Basketball",
-                    "name": "Sport"
-                },
-                {
-                    "icon": "Flower",
-                    "name": "Plants"
-                },
-                {
-                    "icon": "Kiss",
-                    "name": "Emotions"
-                },
-                {
-                    "icon": "Car",
-                    "name": "Transportation"
-                },
-
-            ],
-            selectedCategory: "Food",
-            category: "",
-            currentWord: "",
-            filled: "",
-            currentLetter: "",
-            restOfWord: "",
-            readKey: true,
-
-        },
-        mounted() {
-            window.addEventListener("keydown", this.keydown);
-            this.newWord();
-        },
-        methods: {
-            async keydown(e) {
-                let k = EnglishKeyboard[e.keyCode].toUpperCase();
-                let l = this.currentWord[this.filled.length].toUpperCase();
-                let stikeykey = '';
-                if (this.filled.length){
-                    stikeykey = this.currentWord[this.filled.length-1].toUpperCase();
-                }
-                
-                if (!this.readKey) {
-                    return;
-                }
-
-                if (!k) {
-                    return;
-                }
-
-                if (stikeykey == k  && stikeykey!==l) {
-                    return;
-                }
-
-                if (l === k) {
-                    this.filled += this.currentWord[this.filled.length];
-
-                    // skip spaces and ticks
-                    while (this.currentWord[this.filled.length] === " ") {
-                        this.filled += " ";
-                    }
-                    while (this.currentWord[this.filled.length] === "'") {
-                        this.filled += "'";
-                    }
-
-                    this.currentLetter = this.currentWord[this.filled.length];
-                    this.restOfWord = this.currentWord.substr(this.filled.length+1);
-
-                    this.readKey = false;
-
-                    this.playLetter(k);
-                    await sleep(100);
-
-                    if (this.currentWord[this.filled.length]) {
-                        this.playLetterQuestion(this.currentWord[this.filled.length]);
-                    }
-
-                    this.readKey = true;
-
-                } else {
-                    this.playError();
-                }
-
-                if (this.currentWord === this.filled) {
-                    this.readKey = false;
-                    this.playSuccess();
-                    confetti.start(1200, 50, 1500);
-                    await sleep(1000);
-                    this.playCurrentWord();
-                    await sleep(2000);
-
-                    this.newWord();
-                    this.readKey = true;
-                }
-            },
-            newWord() {
-                const filteredWords = words.filter(x => x.category === this.selectedCategory);
-                const random = Math.floor(Math.random() * filteredWords.length);
-                this.currentWord = filteredWords[random].word;
-                this.category = filteredWords[random].category;
-                this.filled = "";
-                this.currentLetter = this.currentWord[this.filled.length];
-                this.restOfWord = this.currentWord.substr(this.filled.length+1);
-
-                this.playCurrentWord();
-                sleep(1000).then(()=> {
-                    this.playLetterQuestion(this.currentWord[this.filled.length]);
-                });
-
-
-            },
-            chooseCategory(category) {
-                this.selectedCategory = category;
-                this.newWord();
-            },
-            playBell() {
-                window.speechSynthesis.cancel();
-                var audio = new Audio('sounds/bell.wav');
-                audio.play();
-            },
-            playCurrentWord() {   
-                window.speechSynthesis.cancel();             
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = this.currentWord;
-                window.speechSynthesis.speak(msg);
-            },
-            playLetter(letter) {
-                window.speechSynthesis.cancel();
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = letter;
-                window.speechSynthesis.speak(msg);
-            },
-
-            playLetterQuestion(letter) {
-                window.speechSynthesis.cancel();
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = "where is " + letter;
-                window.speechSynthesis.speak(msg);
-            },
-
-
-            playError() {
-                window.speechSynthesis.cancel();
-                var audio = new Audio('sounds/error.wav');
-                audio.play();
-            },
-
-            playSuccess() {
-                window.speechSynthesis.cancel();
-                var audio = new Audio('sounds/success.wav');
-                audio.play();
-            },
-
-        }
-    });
-
-</script>
-
-<script>
-    if('serviceWorker' in navigator) {
-        navigator.serviceWorker
-            .register('/learntotype/sw.js')
-            .then(function() { console.log("Tada! Your service worker is now registered"); });
-    }
-</script>
-
 </body>
 </html>
