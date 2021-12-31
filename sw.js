@@ -3,7 +3,7 @@ self.addEventListener('install', function(e) {
         caches.open('pwa-example').then(function(cache) {
             return cache.addAll([
                 '/',
-                '/index.html'
+                '/learntotype/index.html'
             ]);
         })
     );
