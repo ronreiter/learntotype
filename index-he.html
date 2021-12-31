@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
-    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <title>Learn to Type</title>
-    <script src="words-en.js"></script>
+    <script src="words.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
 <!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -71,7 +70,7 @@
 
           <ul class="menu-list">
             <li v-for="c in categories" :class="{'selected': selectedCategory == c.name}">
-                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images-en/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
+                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
             </li>
           </ul>
 
@@ -80,16 +79,13 @@
     </div>
 
     <div class="main column is-three-quarters has-background-white-ter">
-        <div class="apps_ad" id="ad">
-            <p style="text-align: center; margin-top: 20px">
-                <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
-                <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
-                <span id="close">x</span>
-            </p>
-        </div>
+        <p style="text-align: center; margin-top: 20px">
+            <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
+            <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
+        </p>
 
         <div id="image-div">
-            <img :src='"images-en/" + category + "/" + currentWord + ".svg"'>
+            <img :src='"images/" + category + "/" + currentWord + ".svg"'>
         </div>
 
         <div id="text-div">
@@ -109,16 +105,7 @@
       return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    window.onload = function(){
-        document.getElementById("close").onclick = function(){
-            this.parentNode.parentNode.parentNode
-            .removeChild(this.parentNode.parentNode);
-            return false;
-        };
-        setTimeout(function() {document.getElementById("ad").remove()},10000);
-    };
-
-    const EnglishKeyboard = {
+    const hebrewKeyboard = {
         48: "0",      
         49: "1",
         50: "2",
@@ -129,32 +116,34 @@
         55: "7",
         56: "8",
         57: "9",
-        65: "A",
-        66: "B",
-        67: "C",
-        68: "D",
-        69: "E",
-        70: "F",
-        71: "G",
-        72: "H",
-        73: "I",
-        74: "J",
-        75: "K",
-        76: "L",
-        77: "M",
-        78: "N",
-        79: "O",
-        80: "P",
-        81: "Q",
-        82: "R",
-        83: "S",
-        84: "T",
-        85: "U",
-        86: "V",
-        87: "W",
-        88: "X",
-        89: "Y",
-        90: "Z"
+        65: "ש",
+        66: "נ",
+        67: "ב",
+        68: "ג",
+        69: "ק",
+        70: "כ",
+        71: "ע",
+        72: "י",
+        73: "ן",
+        74: "ח",
+        75: "ל",
+        76: "ך",
+        77: "צ",
+        78: "מ",
+        79: "ם",
+        80: "פ",
+        82: "ר",
+        83: "ד",
+        84: "א",
+        85: "ו",
+        86: "ה",
+        88: "ס",
+        89: "ט",
+        90: "ז",
+        186: "ף",
+        188: "ת",
+        190: "ץ",
+        189: "-",
     }
 
 
@@ -163,68 +152,68 @@
         data: {
             categories: [
                 {
-                    "icon": "Apple",
-                    "name": "Food"
+                    "icon": "תפוח",
+                    "name": "אוכל"
                 },
                 {
-                    "icon": "Chef",
-                    "name": "People"
+                    "icon": "טבח",
+                    "name": "אנשים"
                 },
                 {
-                    "icon": "Television",
-                    "name": "Home"
+                    "icon": "טלויזיה",
+                    "name": "בית"
                 },
                 {
-                    "icon": "Hand",
-                    "name": "Body"
+                    "icon": "יד",
+                    "name": "גוף"
                 },
                 {
-                    "icon": "Balloon",
-                    "name": "Stuff"
+                    "icon": "בלון",
+                    "name": "דברים"
                 },
                 {
-                    "icon": "Dog",
-                    "name": "Animals"
+                    "icon": "כלב",
+                    "name": "חיות"
                 },
                 {
-                    "icon": "Guitar",
-                    "name": "Musical instruments"
+                    "icon": "גיטרה",
+                    "name": "כלי נגינה"
                 },
                 {
-                    "icon": "Key",
-                    "name": "Tools"
+                    "icon": "מפתח",
+                    "name": "כלים"
                 },
                 {
-                    "icon": "Pants",
-                    "name": "Clothes"
+                    "icon": "מכנסים",
+                    "name": "לבוש"
                 },
                 {
                     "icon": "10",
-                    "name": "Numbers"
+                    "name": "מספרים"
                 },
                 {
-                    "icon": "Home",
-                    "name": "Places"
+                    "icon": "בית",
+                    "name": "מקומות"
                 },
                 {
-                    "icon": "Basketball",
-                    "name": "Sport"
+                    "icon": "כדורסל",
+                    "name": "ספורט"
                 },
                 {
-                    "icon": "Flower",
-                    "name": "Plants"
+                    "icon": "פרח",
+                    "name": "צמחים"
                 },
                 {
-                    "icon": "Kiss",
-                    "name": "Emotions"
+                    "icon": "נשיקה",
+                    "name": "רגשות"
                 },
                 {
-                    "icon": "Car",
-                    "name": "Transportation"
+                    "icon": "אוטו",
+                    "name": "תחבורה"
                 },
 
             ],
-            selectedCategory: "Food",
+            selectedCategory: "אוכל",
             category: "",
             currentWord: "",
             filled: "",
@@ -239,8 +228,7 @@
         },
         methods: {
             async keydown(e) {
-                let k = EnglishKeyboard[e.keyCode].toUpperCase();
-                let l = this.currentWord[this.filled.length].toUpperCase();
+                let k = hebrewKeyboard[e.keyCode];
 
                 if (!this.readKey) {
                     return;
@@ -250,8 +238,8 @@
                     return;
                 }
 
-                if (l === k) {
-                    this.filled += this.currentWord[this.filled.length];
+                if (this.currentWord[this.filled.length] === k) {
+                    this.filled += k;
 
                     // skip spaces and ticks
                     while (this.currentWord[this.filled.length] === " ") {
@@ -267,7 +255,7 @@
                     this.readKey = false;
 
                     this.playLetter(k);
-                    await sleep(100);
+                    await sleep(1000);
 
                     if (this.currentWord[this.filled.length]) {
                         this.playLetterQuestion(this.currentWord[this.filled.length]);
@@ -284,6 +272,7 @@
                     this.playSuccess();
                     confetti.start(1200, 50, 1500);
                     await sleep(1000);
+
                     this.playCurrentWord();
                     await sleep(2000);
 
@@ -312,39 +301,31 @@
                 this.newWord();
             },
             playBell() {
-                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/bell.wav');
                 audio.play();
             },
-            playCurrentWord() {   
-                window.speechSynthesis.cancel();             
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = this.currentWord;
-                window.speechSynthesis.speak(msg);
+            playCurrentWord() {
+                // move to function
+                var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
+                audio.play();
             },
             playLetter(letter) {
-                window.speechSynthesis.cancel();
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = letter;
-                window.speechSynthesis.speak(msg);
+                var audio = new Audio('lettersounds/' + letter + '.wav');
+                audio.play();
             },
 
             playLetterQuestion(letter) {
-                window.speechSynthesis.cancel();
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = "where is " + letter;
-                window.speechSynthesis.speak(msg);
+                var audio = new Audio('letterquestions/' + letter + '.wav');
+                audio.play();
             },
 
 
             playError() {
-                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/error.wav');
                 audio.play();
             },
 
             playSuccess() {
-                window.speechSynthesis.cancel();
                 var audio = new Audio('sounds/success.wav');
                 audio.play();
             },
