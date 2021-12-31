@@ -26,7 +26,7 @@ def create_folders(source, destination, source_lang, dest_lang):
       for f in files:
         translated = process_file_name(f)
         if (translated_folder != "Numbers"):
-          translated = GoogleTranslator(source = source_lang, target= dest_lang).translate(translated).capitalize() + ".svg"
+          translated = GoogleTranslator(source = source_lang, target= dest_lang).translate(translated).capitalize().removeprefix("A ").removeprefix("An ").capitalize() + ".svg"
         path = os.path.join(source,root_basename,f)
         path_to = os.path.join(destination,translated_folder, translated)
         print("copying %s to %s" %(path,path_to))
