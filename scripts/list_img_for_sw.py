@@ -21,7 +21,7 @@ def list_images(source):
     root_basename = os.path.basename(root)
     if root_basename in categories:  # One of the categories created in the prev step
       for f in files:
-        print ("'/learntotype/"+ source+ "/images-en/"+ root_basename + "/"+ f +"',")
+        print ("'/learntotype/"+ source + "/" + root_basename + "/"+ f +"',")
       if dirs:
         print("Warning: Ignoring subdirecotires of dir %s" % root)
       continue
