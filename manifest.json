@@ -3,7 +3,7 @@
   "background_color": "#35f64a",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/learntotype",
   "name": "Learn To Type",
   "short_name": "Learn To Type",
   "description": "Learn to type English",
