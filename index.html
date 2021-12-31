@@ -7,7 +7,6 @@
     <title>Learn to Type</title>
     <script src="words-en.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
-<!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="confetti.min.js"></script><script>confetti.start()</script>
 
@@ -242,12 +241,20 @@
             async keydown(e) {
                 let k = EnglishKeyboard[e.keyCode].toUpperCase();
                 let l = this.currentWord[this.filled.length].toUpperCase();
-
+                let stikeykey = '';
+                if (this.filled.length){
+                    stikeykey = this.currentWord[this.filled.length-1].toUpperCase();
+                }
+                
                 if (!this.readKey) {
                     return;
                 }
 
                 if (!k) {
+                    return;
+                }
+
+                if (stikeykey == k  && stikeykey!==l) {
                     return;
                 }
 
@@ -354,17 +361,6 @@
     });
 
 </script>
-
-<!-- Global site tag (gtag.js) - Google Analytics
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165390394-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-165390394-2');
-</script>
- -->
 
 <script>
     if('serviceWorker' in navigator) {
