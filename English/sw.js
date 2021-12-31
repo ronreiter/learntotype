@@ -2,7 +2,7 @@ self.addEventListener('install', function(e) {
     e.waitUntil(
         caches.open('learntotypepwa').then(function(cache) {
             return cache.addAll([
-                '/learntotype',
+                '/learntotype/English',
                 '/learntotype/English/index.html',
                 '/learntotype/English/words.js',
                 '/learntotype/favicon.ico',
