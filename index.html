@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!--link rel="manifest" href="manifest.json"-->
     <meta charset="UTF-8">
     <title>Learn to Type</title>
-    <script src="words.js"></script>
+    <script src="words-en.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma-rtl.min.css">
-<!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="confetti.min.js"></script><script>confetti.start()</script>
 
@@ -51,299 +52,29 @@
             color: transparent;
         }
 
-        .menu-list {
-            height: 100vh;
-        }
-
-        li.selected {
-            background-color: #f5f5f5;
-            font-weight: bold;
-
-        }
     </style>
 </head>
 <body>
 
 <div class="columns" id="app">
-    <div class="column is-one-quarter" style="padding-left: 0">
-        <aside class="menu">
+    <div class="main column has-background-white-ter">
+        <div class="lang_selector">
+            <p style="text-align: center; margin-top: 20px">
 
-          <ul class="menu-list">
-            <li v-for="c in categories" :class="{'selected': selectedCategory == c.name}">
-                <a @click="chooseCategory(c.name)"><img class="icon is-medium" style="vertical-align: sub; margin-right: 10px" :src="'images/' + c.name + '/' + c.icon + '.svg'"><span class="is-size-4" style="margin-right: 10px">{{ c.name }}</span></a>
-            </li>
-          </ul>
-
-    </aside>
-
-    </div>
-
-    <div class="main column is-three-quarters has-background-white-ter">
-        <p style="text-align: center; margin-top: 20px">
-            <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
-            <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
-        </p>
-
-        <div id="image-div">
-            <img :src='"images/" + category + "/" + currentWord + ".svg"'>
+                <a href="Hebrew/index.html"><img src="images/2560px-Flag_of_Israel.svg.png" style="display: inline-block; height: 150px; margin-right: 50px "></a>
+                <a href="English/index.html"><img src="images/2880px-Flag_of_the_United_States.svg.png" style="display: inline-block; height: 150px"></a>
+            </p>
         </div>
-
-        <div id="text-div">
-            <div id="gray-text" dir="ltr"><span dir="ltr">{{ currentWord }}</span></div>
-            <div id="black-text" dir="ltr"><span style="color: black">{{ filled }}</span><span style="color: sandybrown">{{ currentLetter }}</span><span style="color: transparent">{{ restOfWord }}</span></div>
+       
+       
+        <div class="apps_ad" id="ad" style="bottom: 200px;">
+            <p style="text-align: center; margin-bottom: 100px">
+                <a href="https://apps.apple.com/us/app/type-tap/id1533730810" target="_blank"><img src="images/download-on-the-app-store.png" style="display: inline-block; height: 50px; margin-right: 10px "></a>
+                <a href="https://play.google.com/store/apps/details?id=com.learnto.he" target="_blank"><img src="images/google-play-badge.png" style="display: inline-block; height: 50px"></a>
+            </p>
         </div>
 
     </div>
 </div>
-
-
-
-
-<script>
-
-    const sleep = (milliseconds) => {
-      return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
-    const hebrewKeyboard = {
-        48: "0",      
-        49: "1",
-        50: "2",
-        51: "3",
-        52: "4",
-        53: "5",
-        54: "6",
-        55: "7",
-        56: "8",
-        57: "9",
-        65: "ש",
-        66: "נ",
-        67: "ב",
-        68: "ג",
-        69: "ק",
-        70: "כ",
-        71: "ע",
-        72: "י",
-        73: "ן",
-        74: "ח",
-        75: "ל",
-        76: "ך",
-        77: "צ",
-        78: "מ",
-        79: "ם",
-        80: "פ",
-        82: "ר",
-        83: "ד",
-        84: "א",
-        85: "ו",
-        86: "ה",
-        88: "ס",
-        89: "ט",
-        90: "ז",
-        186: "ף",
-        188: "ת",
-        190: "ץ",
-        189: "-",
-    }
-
-
-    const app = new Vue({
-        el: "#app",
-        data: {
-            categories: [
-                {
-                    "icon": "תפוח",
-                    "name": "אוכל"
-                },
-                {
-                    "icon": "טבח",
-                    "name": "אנשים"
-                },
-                {
-                    "icon": "טלויזיה",
-                    "name": "בית"
-                },
-                {
-                    "icon": "יד",
-                    "name": "גוף"
-                },
-                {
-                    "icon": "בלון",
-                    "name": "דברים"
-                },
-                {
-                    "icon": "כלב",
-                    "name": "חיות"
-                },
-                {
-                    "icon": "גיטרה",
-                    "name": "כלי נגינה"
-                },
-                {
-                    "icon": "מפתח",
-                    "name": "כלים"
-                },
-                {
-                    "icon": "מכנסים",
-                    "name": "לבוש"
-                },
-                {
-                    "icon": "10",
-                    "name": "מספרים"
-                },
-                {
-                    "icon": "בית",
-                    "name": "מקומות"
-                },
-                {
-                    "icon": "כדורסל",
-                    "name": "ספורט"
-                },
-                {
-                    "icon": "פרח",
-                    "name": "צמחים"
-                },
-                {
-                    "icon": "נשיקה",
-                    "name": "רגשות"
-                },
-                {
-                    "icon": "אוטו",
-                    "name": "תחבורה"
-                },
-
-            ],
-            selectedCategory: "אוכל",
-            category: "",
-            currentWord: "",
-            filled: "",
-            currentLetter: "",
-            restOfWord: "",
-            readKey: true,
-
-        },
-        mounted() {
-            window.addEventListener("keydown", this.keydown);
-            this.newWord();
-        },
-        methods: {
-            async keydown(e) {
-                let k = hebrewKeyboard[e.keyCode];
-
-                if (!this.readKey) {
-                    return;
-                }
-
-                if (!k) {
-                    return;
-                }
-
-                if (this.currentWord[this.filled.length] === k) {
-                    this.filled += k;
-
-                    // skip spaces and ticks
-                    while (this.currentWord[this.filled.length] === " ") {
-                        this.filled += " ";
-                    }
-                    while (this.currentWord[this.filled.length] === "'") {
-                        this.filled += "'";
-                    }
-
-                    this.currentLetter = this.currentWord[this.filled.length];
-                    this.restOfWord = this.currentWord.substr(this.filled.length+1);
-
-                    this.readKey = false;
-
-                    this.playLetter(k);
-                    await sleep(1000);
-
-                    if (this.currentWord[this.filled.length]) {
-                        this.playLetterQuestion(this.currentWord[this.filled.length]);
-                    }
-
-                    this.readKey = true;
-
-                } else {
-                    this.playError();
-                }
-
-                if (this.currentWord === this.filled) {
-                    this.readKey = false;
-                    this.playSuccess();
-                    confetti.start(1200, 50, 1500);
-                    await sleep(1000);
-
-                    this.playCurrentWord();
-                    await sleep(2000);
-
-                    this.newWord();
-                    this.readKey = true;
-                }
-            },
-            newWord() {
-                const filteredWords = words.filter(x => x.category === this.selectedCategory);
-                const random = Math.floor(Math.random() * filteredWords.length);
-                this.currentWord = filteredWords[random].word;
-                this.category = filteredWords[random].category;
-                this.filled = "";
-                this.currentLetter = this.currentWord[this.filled.length];
-                this.restOfWord = this.currentWord.substr(this.filled.length+1);
-
-                this.playCurrentWord();
-                sleep(1000).then(()=> {
-                    this.playLetterQuestion(this.currentWord[this.filled.length]);
-                });
-
-
-            },
-            chooseCategory(category) {
-                this.selectedCategory = category;
-                this.newWord();
-            },
-            playBell() {
-                var audio = new Audio('sounds/bell.wav');
-                audio.play();
-            },
-            playCurrentWord() {
-                // move to function
-                var audio = new Audio('imagesounds/' + this.currentWord + '.wav');
-                audio.play();
-            },
-            playLetter(letter) {
-                var audio = new Audio('lettersounds/' + letter + '.wav');
-                audio.play();
-            },
-
-            playLetterQuestion(letter) {
-                var audio = new Audio('letterquestions/' + letter + '.wav');
-                audio.play();
-            },
-
-
-            playError() {
-                var audio = new Audio('sounds/error.wav');
-                audio.play();
-            },
-
-            playSuccess() {
-                var audio = new Audio('sounds/success.wav');
-                audio.play();
-            },
-
-        }
-    });
-
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165390394-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-165390394-2');
-</script>
-
 </body>
 </html>

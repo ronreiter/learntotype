@@ -8,16 +8,16 @@ Learn to Type is implemented in Vue.js and has no server side requirements or st
 
 https://ronreiter.github.io/learntotype/index.html
 
-English version 
+Hebrew version
+https://ronreiter.github.io/learntotype/Hebrew
 
-https://ronreiter.github.io/learntotype/index-en.html
+English version 
+https://ronreiter.github.io/learntotype/English
 
 
 # Running locally:
 
-Simply open index.html or index-en.html using Chrome.
-
-If you are using an ide like Webstorm you can debug with breakpoints. Just debug the index.html file. 
+Simply open one of the versions above (Hebrew or English) and choose to install the app from the adress bar.
 
 # Contributing
 
